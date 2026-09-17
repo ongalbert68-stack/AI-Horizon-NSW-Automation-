@@ -19,12 +19,13 @@ class Settings(BaseSettings):
 
     cors_origins: list[str] = ["http://localhost:3000"]
 
-    # Optional LLM reasoner. llama-3.1-8b-instant: highest free daily
-    # ceiling of the Groq models (14,400 requests/day) and lowest latency.
-    # Blank key means no LLM step is available; nothing else in this API
-    # depends on it.
+    # Optional LLM reasoner. llama-3.1-8b-instant (the original pick) was
+    # retired from Groq's catalog — confirmed via a live 404 on GET
+    # /openai/v1/models, not a bug here. openai/gpt-oss-20b is its closest
+    # live equivalent: small, fast, cheap. Blank key means no LLM step is
+    # available; nothing else in this API depends on it.
     groq_api_key: str = ""
-    groq_model: str = "llama-3.1-8b-instant"
+    groq_model: str = "openai/gpt-oss-20b"
 
     @property
     def database_url(self) -> str:

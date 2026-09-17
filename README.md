@@ -73,15 +73,16 @@ Then open http://localhost:3000/cases — if the seeded case (or an empty
 See `backend/README.md` and `frontend/README.md` for more detail on each
 side.
 
-### Optional: LLM reasoner (Groq / llama-3.1-8b-instant)
+### Optional: LLM reasoner (Groq / openai/gpt-oss-20b)
 
 Nothing above needs this — the API and UI run fully without it. To enable
 the LLM reasoner step for case diagnosis:
 
 1. Get a free key at https://console.groq.com/keys.
 2. Set `GROQ_API_KEY` in `backend/.env` (`GROQ_MODEL` already defaults to
-   `llama-3.1-8b-instant` — the Groq model with the highest free daily
-   ceiling, 14,400 requests/day, and the lowest latency).
+   `openai/gpt-oss-20b` — Groq's current small/fast/free-tier model;
+   `llama-3.1-8b-instant`, the original pick, was retired from Groq's
+   catalog).
 3. Restart the backend.
 
 A blank `GROQ_API_KEY` just means that code path is unavailable — nothing
