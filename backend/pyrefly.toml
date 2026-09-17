@@ -1,0 +1,16 @@
+# Pyrefly config. Points at this project's own uv-managed .venv by listing
+# its site-packages directly, rather than a single interpreter executable
+# path — a literal exe path differs by OS (.venv/bin/python vs
+# .venv/Scripts/python.exe) and there's no per-OS branching in TOML.
+# Reading packages straight off disk sidesteps that: `skip-interpreter-query`
+# means Pyrefly never has to find or run a python binary at all, so the same
+# file works unedited on macOS, Linux, and Windows. Keep `python-version` in
+# sync with .python-version (only the MAJOR.MINOR segment matters — it picks
+# the `python3.13` site-packages directory name, not an exact patch).
+python-version = "3.13.0"
+python-platform = "linux"
+skip-interpreter-query = true
+site-package-path = [
+    ".venv/lib/python3.13/site-packages",  # uv venv layout on macOS/Linux
+    ".venv/Lib/site-packages",             # uv venv layout on Windows
+]

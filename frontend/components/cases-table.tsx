@@ -1,0 +1,147 @@
+"use client";
+
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import {
+  type ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { useVirtualizer } from "@tanstack/react-virtual";
+
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import type { Case, CaseTier } from "@/lib/api/types";
+
+const TIER_VARIANT: Record<CaseTier, "default" | "secondary" | "destructive"> = {
+  CONFIRMED: "default",
+  PLAUSIBLE: "secondary",
+  UNVERIFIED: "destructive",
+};
+
+const ROW_HEIGHT = 45;
+
+const columns: ColumnDef<Case>[] = [
+  {
+    accessorKey: "case_id",
+    header: "Case",
+    cell: ({ getValue }) => <span className="font-mono text-xs">#{getValue<number>()}</span>,
+  },
+  {
+    accessorKey: "complaint",
+    header: "Complaint",
+    cell: ({ getValue }) => getValue<string | null>() ?? "unclassified",
+  },
+  {
+    id: "station",
+    header: "Station",
+    accessorFn: (row) => row.station.name,
+  },
+  {
+    accessorKey: "material_lot",
+    header: "Material lot",
+    cell: ({ getValue }) => getValue<string | null>() ?? "—",
+  },
+  {
+    accessorKey: "opened_at",
+    header: "Opened",
+    cell: ({ getValue }) => new Date(getValue<string>()).toLocaleString(),
+  },
+  {
+    accessorKey: "tier",
+    header: "Tier",
+    cell: ({ getValue }) => {
+      const tier = getValue<CaseTier | null>();
+      if (!tier) return <span className="text-muted-foreground">—</span>;
+      return <Badge variant={TIER_VARIANT[tier]}>{tier}</Badge>;
+    },
+  },
+  {
+    accessorKey: "diagnosed",
+    header: "Diagnosed",
+    cell: ({ getValue }) => <span className="capitalize">{getValue<string>().replaceAll("_", " ")}</span>,
+  },
+  {
+    accessorKey: "action_count",
+    header: "Checks",
+  },
+];
+
+/**
+ * Row-virtualized TanStack Table: only the rows scrolled into view are
+ * mounted, so this stays smooth however many cases accumulate.
+ */
+export function CasesTable({ data }: { data: Case[] }) {
+  const router = useRouter();
+  const parentRef = React.useRef<HTMLDivElement>(null);
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  const rows = table.getRowModel().rows;
+
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => ROW_HEIGHT,
+    overscan: 10,
+  });
+
+  const virtualRows = virtualizer.getVirtualItems();
+  const totalSize = virtualizer.getTotalSize();
+  const paddingTop = virtualRows.length > 0 ? virtualRows[0].start : 0;
+  const paddingBottom =
+    virtualRows.length > 0 ? totalSize - virtualRows[virtualRows.length - 1].end : 0;
+
+  return (
+    <div ref={parentRef} className="max-h-[70vh] overflow-auto rounded-md border">
+      <Table>
+        <TableHeader className="sticky top-0 z-10 bg-background">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {paddingTop > 0 && (
+            <TableRow style={{ height: paddingTop }} aria-hidden>
+              <TableCell colSpan={columns.length} className="p-0" />
+            </TableRow>
+          )}
+          {virtualRows.map((virtualRow) => {
+            const row = rows[virtualRow.index];
+            return (
+              <TableRow
+                key={row.id}
+                className="cursor-pointer"
+                onClick={() => router.push(`/cases/${row.original.case_id}`)}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            );
+          })}
+          {paddingBottom > 0 && (
+            <TableRow style={{ height: paddingBottom }} aria-hidden>
+              <TableCell colSpan={columns.length} className="p-0" />
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
