@@ -1,5 +1,7 @@
 "use client";
 
+import { Compass } from "lucide-react";
+
 import * as React from "react";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
@@ -29,9 +31,15 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
+import { TierInfo } from "@/components/tier-info";
 import { ApiError } from "@/lib/api/client";
 import { createCheckResult, getCase } from "@/lib/api/cases";
 import type { Case, CheckOutcome } from "@/lib/api/types";
+import { ProfileGeometryPattern } from "@/components/profile-geometry-pattern";
+
+function yesNo(value: boolean) {
+  return value ? "yes" : "no";
+}
 
 const OUTCOME_VARIANT: Record<CheckOutcome, "default" | "secondary" | "destructive"> = {
   confirms: "default",
@@ -86,31 +94,96 @@ export default function CaseDetailPage() {
             Opened {new Date(caseData.opened_at).toLocaleString()}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           {caseData.tier && <Badge>{caseData.tier}</Badge>}
           <Badge variant="outline">{caseData.diagnosed.replaceAll("_", " ")}</Badge>
           <Badge variant={caseData.resolved ? "default" : "secondary"}>
             {caseData.resolved ? "resolved" : "open"}
           </Badge>
+          <TierInfo />
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Links &amp; context</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
-          <Field label="Station" value={`${caseData.station.name} (${caseData.station.line})`} />
-          <Field label="Profile" value={`${caseData.profile.name}`} />
-          <Field label="Material lot" value={caseData.material_lot ?? "—"} />
-          <Field label="Rules version" value={caseData.rules_version} />
-          <Field
-            label="Closed"
-            value={caseData.closed_at ? new Date(caseData.closed_at).toLocaleString() : "open"}
-          />
-          <Field label="Action count" value={String(caseData.action_count)} />
-        </CardContent>
-      </Card>
+      <div className="grid gap-4 sm:grid-cols-3">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Station</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm">
+            <Field label="Name" value={caseData.station.name} />
+            <Field label="Line" value={caseData.station.line} />
+            <Field label="Dispenser class" value={caseData.station.dispenser_class.replaceAll("_", "-")} />
+            <Field label="Valve model" value={caseData.station.valve_model ?? "—"} />
+            <Field label="Heated reservoir" value={yesNo(caseData.station.heated_reservoir)} />
+            <Field label="Camera available" value={yesNo(caseData.station.camera_available)} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Material</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm">
+            <Field label="Name" value={caseData.profile.material.name} />
+            <Field label="Family" value={caseData.profile.material.family.replaceAll("_", " ")} />
+            <Field label="Part number" value={caseData.profile.material.part_number ?? "—"} />
+            <Field label="Lot" value={caseData.material_lot ?? "—"} />
+            <Field
+              label="Two-part / thixotropic"
+              value={`${yesNo(caseData.profile.material.two_part)} / ${yesNo(caseData.profile.material.thixotropic)}`}
+            />
+            <Field
+              label="Pot life"
+              value={caseData.profile.material.pot_life_hours != null ? `${caseData.profile.material.pot_life_hours} h` : "—"}
+            />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Profile</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm">
+            <Field label="Name" value={caseData.profile.name} />
+            <Field label="Needle gauge" value={caseData.profile.needle_gauge ?? "—"} />
+            <Field
+              label="Set pressure / time"
+              value={`${caseData.profile.set_pressure_kpa ?? "—"} kPa / ${caseData.profile.set_time_ms ?? "—"} ms`}
+            />
+            <Field label="Spec" value={caseData.profile.spec_metric && caseData.profile.spec_limit ? `${caseData.profile.spec_metric} ${caseData.profile.spec_limit}` : "—"} />
+            <Field label="Rules version" value={caseData.rules_version} />
+            <Field
+              label="Closed"
+              value={caseData.closed_at ? new Date(caseData.closed_at).toLocaleString() : "open"}
+            />
+
+            <div className="mt-4 rounded-lg border border-sky-500/20 bg-sky-500/5 p-3.5 dark:border-sky-500/30 dark:bg-sky-500/10">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-sky-600 dark:text-sky-400">
+                    Dispense Pattern Geometry
+                  </span>
+                  {caseData.profile.geometry?.pattern && (
+                    <Badge variant="outline" className="font-mono text-[10px] uppercase">
+                      {caseData.profile.geometry.pattern}
+                    </Badge>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Full pattern showcase, nominal deposit targets, gantry coordinates, and substrate map.
+                </p>
+                <a
+                  href={`/profiles/${caseData.profile.profile_id}?caseId=${caseData.case_id}`}
+                  className="inline-flex items-center justify-center w-full gap-1.5 rounded-md text-xs font-medium h-8 px-3 bg-sky-600 text-white shadow-sm hover:bg-sky-700"
+                >
+                  <Compass className="size-3.5" />
+                  Check Out Geometry Showcase &rarr;
+                </a>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {caseData.complaint_text && (
         <Card>

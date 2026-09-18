@@ -2,37 +2,30 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.models.case import Case
+from app.models.dispense_profile import DispenseProfile
 from app.schemas.case import CaseCreate, CaseUpdate
+
+
+def _loaded(query):
+    return query.options(
+        selectinload(Case.station),
+        selectinload(Case.profile).selectinload(DispenseProfile.material),
+        selectinload(Case.check_results),
+    )
 
 
 def list_cases(db: Session, *, limit: int, offset: int) -> tuple[list[Case], int]:
     total = db.scalar(select(func.count()).select_from(Case)) or 0
     items = list(
         db.scalars(
-            select(Case)
-            .options(
-                selectinload(Case.station),
-                selectinload(Case.profile),
-                selectinload(Case.check_results),
-            )
-            .order_by(Case.opened_at.desc())
-            .limit(limit)
-            .offset(offset)
+            _loaded(select(Case)).order_by(Case.opened_at.desc()).limit(limit).offset(offset)
         )
     )
     return items, total
 
 
 def get_case(db: Session, case_id: int) -> Case | None:
-    return db.scalar(
-        select(Case)
-        .options(
-            selectinload(Case.station),
-            selectinload(Case.profile),
-            selectinload(Case.check_results),
-        )
-        .where(Case.case_id == case_id)
-    )
+    return db.scalar(_loaded(select(Case)).where(Case.case_id == case_id))
 
 
 def create_case(db: Session, data: CaseCreate) -> Case:

@@ -54,16 +54,20 @@ export interface DispenseStation {
 export type DispenseStationInput = Omit<DispenseStation, "station_id">;
 
 export interface GeometryPoint {
-  x: number;
-  y: number;
-  r: number | null;
+  index?: number;
+  cx?: number;
+  cy?: number;
+  x?: number;
+  y?: number;
+  r?: number | null;
 }
 
 export interface Geometry {
   pattern: string;
   width: number | null;
   height: number | null;
-  points: GeometryPoint[];
+  points?: GeometryPoint[];
+  profile?: GeometryPoint[];
 }
 
 export interface DispenseProfile {
@@ -84,9 +88,6 @@ export interface DispenseProfile {
 }
 
 export type DispenseProfileInput = Omit<DispenseProfile, "profile_id" | "material">;
-
-/** DispenseProfile as embedded in a Case response — no nested material. */
-export type DispenseProfileSummary = Omit<DispenseProfile, "material">;
 
 export interface FingerprintAxes {
   signature: string[];
@@ -153,7 +154,7 @@ export interface Case {
   engineer_notes: string | null;
   action_count: number;
   station: DispenseStation;
-  profile: DispenseProfileSummary;
+  profile: DispenseProfile;
   check_results: CheckResult[];
 }
 

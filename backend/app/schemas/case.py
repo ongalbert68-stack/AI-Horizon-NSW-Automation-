@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from app.models.enums import CaseTier, DiagnosedState
 from app.schemas.check_result import CheckResultRead
 from app.schemas.common import ORMModel
-from app.schemas.dispense_profile import DispenseProfileRead
+from app.schemas.dispense_profile import DispenseProfileReadWithMaterial
 from app.schemas.dispense_station import DispenseStationRead
 
 
@@ -100,7 +100,7 @@ class CaseRead(CaseBase, ORMModel):
     case_id: int
     action_count: int
     station: DispenseStationRead
-    profile: DispenseProfileRead
+    profile: DispenseProfileReadWithMaterial
 
 
 class CaseReadDetail(CaseRead):

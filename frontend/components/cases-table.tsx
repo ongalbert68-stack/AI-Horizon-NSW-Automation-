@@ -12,6 +12,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { TierInfo } from "@/components/tier-info";
 import type { Case, CaseTier } from "@/lib/api/types";
 
 const TIER_VARIANT: Record<CaseTier, "default" | "secondary" | "destructive"> = {
@@ -36,12 +37,19 @@ const columns: ColumnDef<Case>[] = [
   {
     id: "station",
     header: "Station",
-    accessorFn: (row) => row.station.name,
+    accessorFn: (row) => `${row.station.name} · ${row.station.line}`,
   },
   {
-    accessorKey: "material_lot",
-    header: "Material lot",
-    cell: ({ getValue }) => getValue<string | null>() ?? "—",
+    id: "material",
+    header: "Material",
+    cell: ({ row }) => (
+      <div>
+        <div>{row.original.profile.material.name}</div>
+        {row.original.material_lot && (
+          <div className="text-xs text-muted-foreground">lot {row.original.material_lot}</div>
+        )}
+      </div>
+    ),
   },
   {
     accessorKey: "opened_at",
@@ -50,10 +58,14 @@ const columns: ColumnDef<Case>[] = [
   },
   {
     accessorKey: "tier",
-    header: "Tier",
+    header: () => (
+      <span className="inline-flex items-center gap-1">
+        Tier <TierInfo />
+      </span>
+    ),
     cell: ({ getValue }) => {
       const tier = getValue<CaseTier | null>();
-      if (!tier) return <span className="text-muted-foreground">—</span>;
+      if (!tier) return <span className="text-muted-foreground">open</span>;
       return <Badge variant={TIER_VARIANT[tier]}>{tier}</Badge>;
     },
   },
