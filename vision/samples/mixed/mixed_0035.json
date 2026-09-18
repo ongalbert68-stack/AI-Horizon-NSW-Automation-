@@ -1,0 +1,214 @@
+{
+  "pattern": "perimeter",
+  "width": 720,
+  "height": 520,
+  "defects_applied": [
+    "bridging_dots",
+    "overrun",
+    "stringing"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 110.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 233.08,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 356.15,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 479.23,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 602.31,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 5,
+      "cx": 610.0,
+      "cy": 225.38,
+      "r": 26.0
+    },
+    {
+      "index": 6,
+      "cx": 610.0,
+      "cy": 348.46,
+      "r": 26.0
+    },
+    {
+      "index": 7,
+      "cx": 548.46,
+      "cy": 410.0,
+      "r": 26.0
+    },
+    {
+      "index": 8,
+      "cx": 425.38,
+      "cy": 410.0,
+      "r": 26.0
+    },
+    {
+      "index": 9,
+      "cx": 302.31,
+      "cy": 410.0,
+      "r": 26.0
+    },
+    {
+      "index": 10,
+      "cx": 179.23,
+      "cy": 410.0,
+      "r": 26.0
+    },
+    {
+      "index": 11,
+      "cx": 110.0,
+      "cy": 356.15,
+      "r": 26.0
+    },
+    {
+      "index": 12,
+      "cx": 110.0,
+      "cy": 233.08,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 110.43,
+      "cy": 109.84,
+      "r": 25.76,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 1,
+      "cx": 233.02,
+      "cy": 110.12,
+      "r": 26.44,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 2,
+      "cx": 356.26,
+      "cy": 109.68,
+      "r": 26.21,
+      "present": true,
+      "tags": [
+        "stringing"
+      ]
+    },
+    {
+      "index": 3,
+      "cx": 479.03,
+      "cy": 109.84,
+      "r": 25.76,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 4,
+      "cx": 602.37,
+      "cy": 109.56,
+      "r": 25.46,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 5,
+      "cx": 610.02,
+      "cy": 225.42,
+      "r": 25.85,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 6,
+      "cx": 610.3,
+      "cy": 348.64,
+      "r": 25.7,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 7,
+      "cx": 548.46,
+      "cy": 410.04,
+      "r": 24.8,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 8,
+      "cx": 424.75,
+      "cy": 410.66,
+      "r": 26.0,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 9,
+      "cx": 302.13,
+      "cy": 410.3,
+      "r": 44.88,
+      "present": true,
+      "tags": [
+        "overrun"
+      ]
+    },
+    {
+      "index": 10,
+      "cx": 178.66,
+      "cy": 409.45,
+      "r": 30.39,
+      "present": true,
+      "tags": [
+        "bridging"
+      ]
+    },
+    {
+      "index": 11,
+      "cx": 110.01,
+      "cy": 356.94,
+      "r": 30.65,
+      "present": true,
+      "tags": [
+        "bridging"
+      ]
+    },
+    {
+      "index": 12,
+      "cx": 110.3,
+      "cy": 232.74,
+      "r": 26.03,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 13,
+      "cx": 411.43,
+      "cy": 136.37,
+      "r": 4.97,
+      "present": true,
+      "tags": [
+        "satellite"
+      ]
+    }
+  ]
+}

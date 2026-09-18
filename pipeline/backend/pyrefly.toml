@@ -1,0 +1,13 @@
+# See ../../pipeline note in AI-Horizon-NSW-Automation-/backend/pyrefly.toml
+# for the full reasoning. This project is a uv workspace member, so the
+# venv to point at is the shared one at the workspace root (../../.venv),
+# not a local one — same site-package-path trick either way: list both OS
+# layouts, skip_interpreter_query so no python binary needs to be found or
+# run, and the wrong-OS entry just warns and is ignored.
+python-version = "3.13.0"
+python-platform = "linux"
+skip-interpreter-query = true
+site-package-path = [
+    "../../.venv/lib/python3.13/site-packages",  # uv venv layout on macOS/Linux
+    "../../.venv/Lib/site-packages",             # uv venv layout on Windows
+]

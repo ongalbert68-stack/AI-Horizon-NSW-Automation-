@@ -1,0 +1,33 @@
+{
+  "profile_supplied": true,
+  "pattern": "area",
+  "summary": {
+    "status": "fail",
+    "dot_count": 15,
+    "flagged_count": 15,
+    "extra_count": 0
+  },
+  "dots": [
+    {"index": 0, "cx": 110.01, "cy": 110.01, "tags": ["undersized"], "area_ratio": 0.377, "circularity": 0.919, "deviation_px": 0.01},
+    {"index": 1, "cx": 239.01, "cy": 109.05, "tags": ["inconsistent"], "area_ratio": 1.073, "circularity": 0.898, "deviation_px": 1.37},
+    {"index": 2, "cx": 370.01, "cy": 110.01, "tags": ["inconsistent"], "area_ratio": 1.008, "circularity": 0.894, "deviation_px": 0.02},
+    {"index": 3, "cx": 499.01, "cy": 110.0, "tags": ["oversized"], "area_ratio": 1.916, "circularity": 0.896, "deviation_px": 0.99},
+    {"index": 4, "cx": 630.01, "cy": 109.01, "tags": ["inconsistent"], "area_ratio": 0.786, "circularity": 0.89, "deviation_px": 0.99},
+    {"index": 5, "cx": 109.99, "cy": 239.0, "tags": ["inconsistent"], "area_ratio": 1.163, "circularity": 0.892, "deviation_px": 1.0},
+    {"index": 6, "cx": 238.04, "cy": 239.04, "tags": ["undersized"], "area_ratio": 0.337, "circularity": 0.878, "deviation_px": 2.18},
+    {"index": 7, "cx": 368.97, "cy": 239.03, "tags": ["inconsistent"], "area_ratio": 0.854, "circularity": 0.886, "deviation_px": 1.42},
+    {"index": 8, "cx": 500.01, "cy": 239.02, "tags": ["undersized"], "area_ratio": 0.589, "circularity": 0.903, "deviation_px": 0.98},
+    {"index": 9, "cx": 628.98, "cy": 238.98, "tags": ["undersized"], "area_ratio": 0.488, "circularity": 0.896, "deviation_px": 1.44},
+    {"index": 10, "cx": 109.01, "cy": 369.02, "tags": ["oversized"], "area_ratio": 1.606, "circularity": 0.909, "deviation_px": 1.4},
+    {"index": 11, "cx": 239.01, "cy": 370.01, "tags": ["inconsistent"], "area_ratio": 0.786, "circularity": 0.89, "deviation_px": 0.99},
+    {"index": 12, "cx": 369.02, "cy": 370.03, "tags": ["oversized"], "area_ratio": 2.027, "circularity": 0.892, "deviation_px": 0.98},
+    {"index": 13, "cx": 498.99, "cy": 370.0, "tags": ["inconsistent"], "area_ratio": 1.163, "circularity": 0.892, "deviation_px": 1.01},
+    {"index": 14, "cx": 628.98, "cy": 370.0, "tags": ["inconsistent"], "area_ratio": 1.332, "circularity": 0.908, "deviation_px": 1.02}
+  ],
+  "extra": [],
+  "counts": {
+    "undersized": 4,
+    "inconsistent": 8,
+    "oversized": 3
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "case": "nsw_inconsistent_size",
+  "truth": {
+    "basis": "generator",
+    "generator_defects": ["inconsistent"],
+    "generator_code": "vision/synth/defects.py::inconsistent",
+    "what_the_generator_does": "Multiplies every dot's radius by an independent uniform(0.55, 1.5) draw. No dependence on dispense order, board position or neighbouring dots; shape is unchanged.",
+    "what_it_does_not_encode": "A cause. The image fixes the symptom, not why it happened, so no single cause can be proven from this case's inputs alone."
+  },
+  "operator_answer": {"questionId": "deviation", "value": "Inconsistent size shot to shot"},
+  "defect": {
+    "expected": "Inconsistent dispensing volume",
+    "basis": ["brief p.3 (B01)", "docs/personal/visual signature.md row 11 (team taxonomy)"]
+  },
+  "image_facts": [
+    {"fact": "Sizes scatter in both directions: 3 oversized and 4 undersized out of 15 dots; none missing.", "from": "signals.json oversized_count, undersized_count, missing_count"},
+    {"fact": "Deposit size spread across the array is 48.6% of the mean.", "from": "signals.json size_cv"},
+    {"fact": "No dispense-order pattern: 1 of 4 small dots is followed by an oversized dot, and random placement gives at least that 62% of the time.", "from": "signals.json small_then_big_count, small_then_big_chance_p"},
+    {"fact": "Shape is normal: mean circularity 0.896, above the 0.80 threshold for tailing or irregular dots.", "from": "signals.json mean_circularity"},
+    {"fact": "Row 2 averages smaller (mean area ratio 0.69, against 1.03 and 1.38). Shuffling the same 15 sizes across positions gives a row gap at least this large 7.7% of the time (column gap: 72.8%), and the generator places sizes at random. This is not evidence of a positional cause.", "from": "expected_reasoning.md (200,000 shuffles, seed 0)"}
+  ],
+  "causes": {
+    "acceptable_first": ["air_in_fluid_path", "pressure_time_instability", "material_rheology_change", "nozzle_blockage"],
+    "must_not_rank_first": ["volume_too_small_carryover", "dispense_height_or_board_bending", "equipment_condition"],
+    "reasons": {
+      "volume_too_small_carryover": "Its documented signature -- a small or missing dot followed by an over-sized dot (M12) -- is absent: 1 of 4, at chance level.",
+      "dispense_height_or_board_bending": "Its documented signature -- deposit shape changing with board position (M06) -- is absent: circularity is normal and the row and column differences are within chance.",
+      "equipment_condition": "The brief's own example ranks it last for inconsistent volume (B05), and nothing in this case points to it."
+    }
+  },
+  "questions": {
+    "must_ask_before_final_ranking": [
+      {"id": "frequency", "why": "The acceptable causes cannot be separated using this image. The brief separates air from the others by whether the change is occasional or continuous (B05)."}
+    ],
+    "should_ask": [
+      {"id": "recent_change", "why": "A new material lot or syringe bears on material condition and on air."},
+      {"id": null, "text": "Is the dispenser pressure-time or positive displacement (auger)?", "why": "Pressure-time systems give variable volumes (M01, M10). The current pack has no question for this."}
+    ]
+  },
+  "forbidden_claims": [
+    "Small dots are followed by big dots (a carryover pattern) in this image.",
+    "Deposits are smeared, spread or irregular in shape.",
+    "A row, column or board position is worse, used as evidence for a cause.",
+    "A specific numeric parameter change (for example 'increase dispense time by 10-20%') that no cited passage states."
+  ]
+}

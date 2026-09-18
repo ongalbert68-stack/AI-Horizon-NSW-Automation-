@@ -1,0 +1,53 @@
+{
+  "case": "nsw_missing_carryover",
+  "truth": {
+    "basis": "generator",
+    "generator_defects": ["missing_carryover"],
+    "generator_code": "vision/synth/defects.py::missing_carryover",
+    "what_the_generator_does": "Walks the dots in dispense order. With probability 0.2 a dot is not dispensed (tagged missing) and its radius is carried forward; the next dispensed dot has that carried radius added to its own, times 0.8 to 1.1, and is tagged carryover_big.",
+    "what_it_encodes": "A cause, unlike the paired inconsistent-size case. The generator's own docstring states it implements the mechanism matc82 sec 3.5 documents, so the correct top cause is known here.",
+    "caveat": "The generator adds the carried radius, so a carry measures 3.4x to 4.0x nominal area. A carry that conserved volume would be nearer 2x. Do not require the surplus to equal the deficit, and do not treat the surplus being larger than the missing volume as evidence against carryover."
+  },
+  "operator_answer": {"questionId": "deviation", "value": "Missing dots"},
+  "defect": {
+    "expected": "Missing deposits, each followed by an oversized deposit at the next dispense position",
+    "basis": ["brief p.1 (B00)", "matc82 sec 3.5 (M12)", "docs/personal/visual signature.md rows 2 and 3 (team taxonomy)"]
+  },
+  "image_facts": [
+    {"fact": "Three profile positions have no deposit: dots 0, 6 and 9 in dispense order.", "from": "signals.json missing_count"},
+    {"fact": "Three deposits are oversized at 3.41x to 4.01x nominal area: dots 1, 7 and 10.", "from": "signals.json oversized_count, cv_output.json"},
+    {"fact": "Every miss is followed immediately by an oversized deposit: 3 of 3, which random placement produces about 1% of the time.", "from": "signals.json small_then_big_count, small_then_big_chance_p"},
+    {"fact": "The remaining nine deposits measure 0.85x to 1.01x nominal, so the rest of the array is in spec.", "from": "cv_output.json"},
+    {"fact": "Mean circularity 0.889: the oversized deposits are round, so this is not smearing or tailing.", "from": "signals.json mean_circularity"}
+  ],
+  "causes": {
+    "must_rank_first": "volume_too_small_carryover",
+    "acceptable_second": ["pressure_time_instability", "air_in_fluid_path"],
+    "must_not_rank_first": ["nozzle_blockage", "air_in_fluid_path", "material_rheology_change", "dispense_height_or_board_bending", "equipment_condition", "pressure_time_instability"],
+    "reasons": {
+      "volume_too_small_carryover": "The measurements match the hallmark in M12 exactly -- a very small or missing dot followed by a larger over-sized dot at the next deposition point -- on all three misses.",
+      "nozzle_blockage": "A restriction starves shots. No source says it puts extra material on the following shot, so it leaves the three oversized deposits unexplained.",
+      "air_in_fluid_path": "Allowed second: the brief has air causing volume to vary, but no source has air adding the missing volume to the next dot.",
+      "pressure_time_instability": "Allowed second: M10 and M18 give missed dots as an eventual result of pressure-time pumping, and a valve open time near the 120ms floor is one reason a shot's volume could be marginal. It explains the misses but not the pairing."
+    }
+  },
+  "remedy": {
+    "must_cite": ["M12", "M16", "M20"],
+    "expected": "Increase the dispense time, or keep the volume down by moving to a smaller ID foot contact needle.",
+    "note": "No source gives a percentage or a step size for the increase."
+  },
+  "questions": {
+    "must_ask_before_final_ranking": [],
+    "should_ask": [
+      {"id": null, "text": "What is the dispense time (valve open time) for this recipe?", "why": "The manual's fix is to increase it (M12), so its current value decides whether that fix is available."},
+      {"id": null, "text": "Is the dispenser pressure-time or positive displacement (auger), and what needle ID is fitted?", "why": "M10 and M18 tie missed dots to pressure-time pumping; M12's alternative fix is a smaller ID foot contact needle."}
+    ],
+    "pack_gap": "web/packs/nsw/index.ts's follow-up for missing dots (NSW_FOLLOWUPS.missing) offers only 'the next shot is normal' or 'several shots stay undersized'. The observation in this image -- the next shot is oversized -- cannot be entered."
+  },
+  "forbidden_claims": [
+    "The shot after a missing dot recovers to normal size.",
+    "The missing dots and the oversized dots are unrelated, or are two separate defects.",
+    "Deposits are smeared, spread or irregular in shape.",
+    "A specific numeric parameter change (for example 'increase dispense time by 10-20%') that no cited passage states."
+  ]
+}

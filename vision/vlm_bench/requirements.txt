@@ -1,0 +1,26 @@
+# pip install -r vlm_bench/requirements.txt (into vision/.venv)
+#
+# All three local backends run on CPU (see backends.py's docstrings): this
+# card's actually-free VRAM (~3.68GB, not the nominal 4096MiB nvidia-smi
+# reports) wasn't enough to fit any of them reliably -- fp16 OOM'd, 4-bit
+# quantization produced garbage output under this benchmark's long shared
+# prompt, and 8-bit refused to load without CPU/disk offload. torch's
+# default (CUDA) build is still fine to install; it's just not used by
+# these backends' device_map="cpu".
+
+torch>=2.4
+torchvision                  # Qwen2.5-VL's AutoVideoProcessor imports this even for still images
+# Pinned below 5.0: transformers 5.x requires trust_remote_code models to
+# call the new post_init() pattern, which moondream2's remote code doesn't
+# -- crashes with "'HfMoondream' object has no attribute
+# 'all_tied_weights_keys'" (a known break affecting several
+# trust_remote_code models, not specific to this repo). 4.49+ is still
+# needed for Qwen2_5_VLForConditionalGeneration / AutoModelForImageTextToText.
+transformers>=4.49,<5.0
+accelerate>=0.34
+pillow
+einops                       # moondream2's trust_remote_code modeling needs this
+qwen-vl-utils                # process_vision_info() for the Qwen backend
+num2words                    # SmolVLM2's processor requires this
+python-dotenv
+google-genai                 # Gemini backend

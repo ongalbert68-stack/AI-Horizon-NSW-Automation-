@@ -1,25 +1,9 @@
-# Environment
-.env
-.env.local
-
-# Python
-__pycache__/
-*.pyc
-.venv/
-*.egg-info/
-
-# Node / frontend
 node_modules/
 .next/
-.turbo/
-dist/
-*.tsbuildinfo
-
-# Editors / OS
-.idea/
-.vscode/
-.DS_Store
-
-# Vector / SQLite stores used by the existing Streamlit prototype
-chroma_db/
-*.db
+.venv/
+__pycache__/
+/**/.env
+/**/.env.*
+/**/!.env*.example
+vision/vlm_bench/results/
+*.pyc

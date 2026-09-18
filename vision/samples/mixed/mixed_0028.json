@@ -1,0 +1,101 @@
+{
+  "pattern": "pattern",
+  "width": 720,
+  "height": 480,
+  "defects_applied": [
+    "smearing",
+    "double_dispense"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 120.0,
+      "cy": 120.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 216.0,
+      "cy": 216.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 312.0,
+      "cy": 312.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 408.0,
+      "cy": 312.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 504.0,
+      "cy": 216.0,
+      "r": 26.0
+    },
+    {
+      "index": 5,
+      "cx": 600.0,
+      "cy": 120.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 119.68,
+      "cy": 120.18,
+      "r": 26.11,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 1,
+      "cx": 216.05,
+      "cy": 215.62,
+      "r": 26.1,
+      "present": true,
+      "tags": [
+        "smearing"
+      ]
+    },
+    {
+      "index": 2,
+      "cx": 312.19,
+      "cy": 312.61,
+      "r": 26.42,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 3,
+      "cx": 408.26,
+      "cy": 312.55,
+      "r": 26.57,
+      "present": true,
+      "tags": [
+        "double_dispense"
+      ]
+    },
+    {
+      "index": 4,
+      "cx": 503.8,
+      "cy": 216.0,
+      "r": 25.78,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 5,
+      "cx": 599.46,
+      "cy": 120.6,
+      "r": 25.74,
+      "present": true,
+      "tags": []
+    }
+  ]
+}

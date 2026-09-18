@@ -1,0 +1,84 @@
+{
+  "pattern": "line_trace",
+  "width": 850,
+  "height": 460,
+  "defects_applied": [
+    "line_start_defect"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 100.0,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 262.5,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 425.0,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 587.5,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 750.0,
+      "cy": 230.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 100.0,
+      "cy": 230.12,
+      "r": 25.89,
+      "present": false,
+      "tags": [
+        "line_start_defect"
+      ]
+    },
+    {
+      "index": 1,
+      "cx": 262.14,
+      "cy": 229.82,
+      "r": 25.6,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 2,
+      "cx": 425.02,
+      "cy": 230.54,
+      "r": 25.8,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 3,
+      "cx": 587.25,
+      "cy": 230.2,
+      "r": 26.14,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 4,
+      "cx": 750.04,
+      "cy": 229.63,
+      "r": 25.99,
+      "present": true,
+      "tags": []
+    }
+  ]
+}

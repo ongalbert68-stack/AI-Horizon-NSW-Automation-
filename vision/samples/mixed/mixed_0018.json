@@ -1,0 +1,100 @@
+{
+  "pattern": "pattern",
+  "width": 720,
+  "height": 480,
+  "defects_applied": [
+    "bridging_dots"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 120.0,
+      "cy": 120.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 216.0,
+      "cy": 216.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 312.0,
+      "cy": 312.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 408.0,
+      "cy": 312.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 504.0,
+      "cy": 216.0,
+      "r": 26.0
+    },
+    {
+      "index": 5,
+      "cx": 600.0,
+      "cy": 120.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 119.73,
+      "cy": 119.65,
+      "r": 26.33,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 1,
+      "cx": 215.68,
+      "cy": 215.88,
+      "r": 26.51,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 2,
+      "cx": 312.02,
+      "cy": 312.27,
+      "r": 30.61,
+      "present": true,
+      "tags": [
+        "bridging"
+      ]
+    },
+    {
+      "index": 3,
+      "cx": 407.46,
+      "cy": 311.56,
+      "r": 29.9,
+      "present": true,
+      "tags": [
+        "bridging"
+      ]
+    },
+    {
+      "index": 4,
+      "cx": 503.92,
+      "cy": 216.34,
+      "r": 26.1,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 5,
+      "cx": 600.52,
+      "cy": 120.5,
+      "r": 26.2,
+      "present": true,
+      "tags": []
+    }
+  ]
+}

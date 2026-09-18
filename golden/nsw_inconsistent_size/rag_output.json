@@ -1,0 +1,152 @@
+{
+  "assumption": "Retrieval is treated as complete and correct for this golden case. This file is a fixed, hand-verified extract, not the output of a live retriever, and it deliberately contains no conclusion: grading lives in expected.json.",
+  "query": "Candidate causes and checks for a dispensing defect: dot size inconsistent shot to shot (some dots larger, some smaller).",
+  "scope": "Every passage in the two project documents that bears on a candidate cause in golden/causes.json for this symptom, whichever cause it supports or argues against. Both documents were read in full for dot dispensing (matc82 pp.1-31 and 37-39; brief pp.1-8). Text is quoted as printed; [...] marks omitted sentences and [Figure N: ...] paraphrases figure labels.",
+  "sources": [
+    {"id": "matc82", "path": "docs/personal/matc82.pdf", "title": "NPL Report MATC(A)82 -- A Guide to Best Practice for Electronic Materials Dispensing (2001)"},
+    {"id": "brief", "path": "docs/NSW Automation .pdf", "title": "AI Dispensing Defect Detective -- NSW Automation challenge brief"}
+  ],
+  "passages": [
+    {
+      "id": "B01", "source": "brief", "section": "Step 2 - Identify the Dispensing Defect", "page": "3",
+      "bears_on": ["defect_identification"],
+      "text": "Possible Defect - Inconsistent Dispensing Volume. Confidence Level: ★★★★☆. Possible symptoms: Some dispensing dots are larger; Some dispensing dots are smaller; Dispensing results are not repeatable."
+    },
+    {
+      "id": "B02", "source": "brief", "section": "Step 1 - Dispensing Problem Discovery", "page": "2",
+      "bears_on": ["question"],
+      "text": "The AI should first ask approximately five smart questions. For example: What material is being dispensed? Is the dispensing amount too large or too small? Is the defect happening continuously or occasionally? Has the material, nozzle or process setting recently changed? Is the defect happening at one location or across multiple locations?"
+    },
+    {
+      "id": "B03", "source": "brief", "section": "3. Bonus Challenge", "page": "3",
+      "bears_on": ["question"],
+      "text": "The AI dynamically asks additional questions depending on the user's answers. For example: User: \"The dispensing dot is sometimes too small.\" AI: \"Does the problem happen continuously or only after the machine has been running for some time?\""
+    },
+    {
+      "id": "B04", "source": "brief", "section": "Step 3 - AI Cause Analysis", "page": "3-4",
+      "bears_on": ["material_rheology_change", "air_in_fluid_path", "pressure_time_instability", "nozzle_blockage", "equipment_condition"],
+      "text": "Possible Causes: Material Condition: The material viscosity may have changed. Air Bubble: Air may be trapped inside the syringe or material supply system. Dispensing Parameter: Pressure or dispensing time may not be stable. Nozzle Condition: The dispensing nozzle may be partially blocked. Equipment Condition: The dispensing system may require inspection."
+    },
+    {
+      "id": "B05", "source": "brief", "section": "Step 4 - Generate an AI Troubleshooting Score", "page": "4",
+      "bears_on": ["air_in_fluid_path", "nozzle_blockage", "material_rheology_change", "pressure_time_instability", "equipment_condition"],
+      "text": "Example: Air Bubble 85%; Nozzle Blockage 70%; Material Viscosity Change 65%; Incorrect Parameter 45%; Equipment Problem 25%. The AI should explain WHY it provides the recommendation. Example: \"Air bubbles are ranked as the highest possible cause because the dispensing volume changes occasionally rather than continuously.\""
+    },
+    {
+      "id": "B06", "source": "brief", "section": "Step 5 - Generate a Troubleshooting Action Plan", "page": "5",
+      "bears_on": ["remedy"],
+      "text": "Recommended Troubleshooting Sequence. Step 1: Check the syringe for visible air bubbles. Step 2: Inspect the dispensing nozzle for blockage. Step 3: Verify the dispensing pressure and time settings. Step 4: Check whether the material condition has changed. Step 5: Perform several test dispensing shots and compare the results."
+    },
+    {
+      "id": "M01", "source": "matc82", "section": "2.1 Pressure-Time Systems", "page": "6",
+      "bears_on": ["pressure_time_instability"],
+      "text": "The greater the pressure and the longer it is applied for the more material that is dispensed. The repeatability and accuracy of these systems is less than for positive displacement systems (See 2.2), and dispensing smaller volumes are particularly problematic."
+    },
+    {
+      "id": "M02", "source": "matc82", "section": "2.2.1 Auger Screw Systems", "page": "6-7",
+      "bears_on": ["pressure_time_instability"],
+      "text": "Auger screw systems have much better accuracy and repeatability than pressure-time systems (See 2.1). [...] Data collected shows that the volume of material dispensed by Auger screw systems is directly proportional to the angle turned by the Auger screw."
+    },
+    {
+      "id": "M03", "source": "matc82", "section": "2.5 Material Flow Calibration", "page": "8",
+      "bears_on": ["material_rheology_change"],
+      "text": "The rheological properties of materials will often alter over time, for example as they cure. These changes can result in variation in flow rates and hence dispense volumes. [...] Volume calibration systems have an advantage in that they are not affected by density changes of the material (for example filled materials can have a higher density at the bottom of a syringe due to settling)."
+    },
+    {
+      "id": "M04", "source": "matc82", "section": "2.6 Selection of Dispense Needles", "page": "8-9",
+      "bears_on": ["volume_too_small_carryover"],
+      "text": "Dispensing relies upon the effects of surface tension to pull the material from the nozzle to the board surface. The surface tension holding the material to the nozzle should be small to ensure good transfer of material. [Figure 2: F > f for good dispensing, where f is the surface tension between needle and the product and F the surface tension between product and the surface.] To help reduce the forces between the needle tip and the material chamfered needles can be used, and are recommended."
+    },
+    {
+      "id": "M05", "source": "matc82", "section": "2.7 Dispense Height", "page": "11",
+      "bears_on": ["dispense_height_or_board_bending"],
+      "text": "The distance between the substrate and needle tip is critical to the quality of dispensing. As a guide the height should be about 30 to 50% of the inner diameter of the chamfered needle. [Figure 7: height too low gives a low dot profile and needle contamination; height too high gives a high profile dot and stringing.] In practice a 2:1 ratio between needle inner diameter and dispense height gives good results for most materials."
+    },
+    {
+      "id": "M06", "source": "matc82", "section": "2.8 PCB Handling", "page": "12",
+      "bears_on": ["dispense_height_or_board_bending"],
+      "text": "The variation in height due to clamp bending can be much larger than that from inherent warping of laminates. With a footed needle, however, the practical dispense height will change over the board area due to bending. Figure 9 shows how variation in deposit shape may change over the PCB area if it is bent during mounting. [Figure 9: low height produces a squat deposit; high height produces a tall deposit.]"
+    },
+    {
+      "id": "M07", "source": "matc82", "section": "2.9.1 Dispensing Head Heating", "page": "13",
+      "bears_on": ["material_rheology_change"],
+      "text": "Ambient temperature variations can affect the rheology of materials as they sit in the machine mounted cartridge prior and during dispensing. These changes can lead to variation in dispensed volume even though all other parameters remain constant. Mass Calibration (See 2.5) can help reduce these effects, but often they can happen on a faster time scale than the relatively infrequent mass checks."
+    },
+    {
+      "id": "M08", "source": "matc82", "section": "2.10 Cleaning", "page": "13",
+      "bears_on": ["equipment_condition", "nozzle_blockage"],
+      "text": "Make sure to only use cleaning solvents recommended by the manufacturer and material supplier, and remember that if materials are left to cure in dispensing heads they may be rendered useless."
+    },
+    {
+      "id": "M09", "source": "matc82", "section": "3.1 Needle Type (solder paste)", "page": "15-16",
+      "bears_on": ["nozzle_blockage"],
+      "note": "Particle-size ranges quoted as printed; the two Type 3 ranges disagree in the source.",
+      "text": "A Type 3 paste (25-45µm particle size) will be less prone to blocking needles, although smaller particle pastes can be more prone to oxidation in storage and may not wet as well in reflow. Test results suggest that for a Type 2 paste you can use a 200µm ID needle, and for a Type 3 paste (45-75µm particles) a 300µm ID needle without blocking. When blocking does occur with solder paste the flux can continue to be forced through the needle whilst particles are compressed together. When the nozzle head is disassembled to find the blockage, a 'bullet' can often be found and must be removed (Figure 12)."
+    },
+    {
+      "id": "M10", "source": "matc82", "section": "3.2 Pump Type (solder paste)", "page": "16",
+      "bears_on": ["pressure_time_instability", "material_rheology_change", "remedy"],
+      "text": "A pressure-time system can be used to dispense solder paste, but variability in the dispensed volumes is possible. Pressure-time systems have particular limitation dispensing smaller dot sizes, and with valve open times of around 120ms or less, no paste is dispensed. The material absorbs energy every time the system is 'pumped', or pressurised to dispense a dot. This can result in heating of the paste, and also separation and cracking in the bulk of the material. The eventual result being missed dots. Using an Auger screw system provides much better results and is recommended."
+    },
+    {
+      "id": "M11", "source": "matc82", "section": "3.4 Dot Shape (solder paste)", "page": "17",
+      "bears_on": ["pressure_time_instability", "defect_identification"],
+      "text": "For a given needle size dispensing a larger volume will produce a flatter paste deposit. [...] Volume is directly proportional to dispense time; Deposit diameter increases with volume, rate of increase reducing with volume; The deposit height remains unchanged i.e. it is defined by the footed needle design."
+    },
+    {
+      "id": "M12", "source": "matc82", "section": "3.5 Missing Dots and Big Dot Small Dot Defect (solder paste)", "page": "18-19",
+      "bears_on": ["volume_too_small_carryover", "remedy"],
+      "text": "If the volume of paste dispensed from the needle is too small the paste may not make contact, or properly wet and adhere to the copper PCB pad. This results in a dispensing defect known as a missed dot or big dot/small dot. The hallmark of this problem is a very small or missing dot, followed by a larger over-sized dot at the next deposition point, as illustrated in Figure 17. [Figure 17: missing dot, no wetting to substrate; solder remains on needle tip; additional volume is added to first dot volume; oversized dot.] The defect can be clearly seen in the array of deposits in Figure 18, where alternate dots are absent. Where there were missing dots, a flux circle can just be seen where contact is made. To eliminate the defect increase the dispense time, or if you want to keep the volume of paste down use a smaller ID and foot contact needle."
+    },
+    {
+      "id": "M13", "source": "matc82", "section": "4.1 Nozzle Type (SM adhesive)", "page": "22",
+      "bears_on": ["nozzle_blockage"],
+      "text": "Generally blocking of nozzles is not an issue with SM adhesives, as they are not significantly loaded with particulates."
+    },
+    {
+      "id": "M14", "source": "matc82", "section": "4.2 Pump Type (SM adhesive)", "page": "22",
+      "bears_on": ["pressure_time_instability", "material_rheology_change", "remedy"],
+      "text": "A pressure-time system can be used to dispense SM adhesives, but expect variability in the volumes dispensed. Pressure-time systems have a particular limitation in dispensing smaller dot sizes, and with valve open times of around 120ms or less, no paste is dispensed. The material absorbs energy every time the system is 'pumped' with pressured air to dispense a dot. This can result in heating of the adhesive, reducing its pot life. Using an Auger screw system provides much better results and is recommended."
+    },
+    {
+      "id": "M15", "source": "matc82", "section": "4.4 Dot Shape (SM adhesive)", "page": "23",
+      "bears_on": ["pressure_time_instability", "defect_identification"],
+      "text": "For a given needle size dispensing a larger volume of adhesive will produce a taller, thinner adhesive deposit. [...] Volume is directly proportional to dispense time; Deposit radius increases with volume, but this rate of increase reduces with increasing volume; The deposit height also increases with volume."
+    },
+    {
+      "id": "M16", "source": "matc82", "section": "4.5 Missing Dots, and, Big Dot Small Dot Defect (SM adhesive)", "page": "25",
+      "bears_on": ["volume_too_small_carryover", "remedy"],
+      "text": "If the volume of adhesive dispensed from the needle is too small it may not make contact, or properly wet and so adhere to the copper PCB pad. This results in a dispensing defect known as a missed dot, or big dot/small dot, as was discussed in section 3.5. The hallmark of this problem is a very small or missing dot, followed by a larger over-sized dot at the next deposition point, shown previously in Figure 17. The defect can be clearly seen in the array of SM adhesive deposits in Figure 28, where alternate dots are very small. The dots were dispensed in rows from left to right. To eliminate the defect increase the dispense time, as shown in Figure 29, or if you want to keep the volume of adhesive down use a smaller ID and foot contact needle."
+    },
+    {
+      "id": "M17", "source": "matc82", "section": "5.1 Needle Type (ICA)", "page": "27",
+      "bears_on": ["nozzle_blockage"],
+      "text": "Test results suggest that for a typical ICA you can use a 200µm ID needle without blocking."
+    },
+    {
+      "id": "M18", "source": "matc82", "section": "5.2 Pump Type (ICA)", "page": "28",
+      "bears_on": ["pressure_time_instability", "material_rheology_change", "remedy"],
+      "text": "A pressure-time system can be used to dispense ICA, but expect variability in the volumes dispensed. Again pressure-time systems have a particular limitation dispensing smaller dot sizes. The material absorbs energy every time the system is 'pumped' with pressured air to dispense a dot. This can result in heating of the adhesive, and also separation and cracking in the bulk of the material. The eventual result being missed dots. Using an Auger screw system provides much better results and is recommended."
+    },
+    {
+      "id": "M19", "source": "matc82", "section": "5.4 Dot Shape (ICA)", "page": "29",
+      "bears_on": ["pressure_time_instability", "defect_identification"],
+      "text": "For a given needle size dispensing a larger volume will produce a flatter ICA deposit. [...] Volume is directly proportional to dispense time; Deposit radius increases with volume, the rate of increase being greater than for height; The deposit height increases with volume."
+    },
+    {
+      "id": "M20", "source": "matc82", "section": "5.5 Missing Dots and Big Dot Small Dot Defect (ICA)", "page": "31",
+      "bears_on": ["volume_too_small_carryover", "remedy"],
+      "text": "This is very similar to the issues encountered previously with solder paste and SM adhesive, as discussed in sections 3.5 and 4.5. To eliminate the defect increase the dispense time, or if you want to keep the volume of adhesive down use a smaller ID and foot contact needle."
+    }
+  ],
+  "source_gaps": [
+    {
+      "cause": "air_in_fluid_path",
+      "note": "matc82 never discusses air in the syringe or fluid path for dot dispensing. Its only mentions of air entrapment are for other processes, quoted here so a reader can check. The brief (B04, B05) is the only source for this cause.",
+      "context": [
+        {"source": "matc82", "section": "6.5 Heating (glob tops)", "page": "37", "text": "The heat helps to allow flow of the globtop under and around the components and helps to avoid air entrapment."},
+        {"source": "matc82", "section": "7.2 Air Entrapment and Array Designs (underfills)", "page": "38", "text": "Underfill materials can trap air beneath components if the material travels faster around the perimeter of the component, and closes the air in before material has travelled beneath the chip to displace it."}
+      ]
+    }
+  ]
+}

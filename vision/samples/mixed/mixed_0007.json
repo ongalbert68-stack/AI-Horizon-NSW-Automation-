@@ -1,0 +1,80 @@
+{
+  "pattern": "line_trace",
+  "width": 850,
+  "height": 460,
+  "defects_applied": [],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 100.0,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 262.5,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 425.0,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 587.5,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 750.0,
+      "cy": 230.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 99.54,
+      "cy": 229.45,
+      "r": 26.18,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 1,
+      "cx": 262.7,
+      "cy": 229.6,
+      "r": 25.79,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 2,
+      "cx": 424.46,
+      "cy": 230.61,
+      "r": 24.9,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 3,
+      "cx": 587.69,
+      "cy": 229.99,
+      "r": 26.77,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 4,
+      "cx": 750.13,
+      "cy": 229.67,
+      "r": 25.82,
+      "present": true,
+      "tags": []
+    }
+  ]
+}

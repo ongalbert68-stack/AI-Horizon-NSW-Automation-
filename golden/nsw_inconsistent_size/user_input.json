@@ -1,0 +1,9 @@
+{
+  "answers": [
+    {
+      "questionId": "deviation",
+      "prompt": "How does the dispensed result deviate from target?",
+      "value": "Inconsistent size shot to shot"
+    }
+  ]
+}

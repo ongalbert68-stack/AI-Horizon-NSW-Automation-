@@ -1,0 +1,252 @@
+{
+  "pattern": "area",
+  "width": 740,
+  "height": 480,
+  "defects_applied": [
+    "misaligned"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 110.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 240.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 370.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 500.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 630.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 5,
+      "cx": 110.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 6,
+      "cx": 240.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 7,
+      "cx": 370.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 8,
+      "cx": 500.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 9,
+      "cx": 630.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 10,
+      "cx": 110.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 11,
+      "cx": 240.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 12,
+      "cx": 370.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 13,
+      "cx": 500.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 14,
+      "cx": 630.0,
+      "cy": 370.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 109.71,
+      "cy": 116.08,
+      "r": 26.31,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 1,
+      "cx": 246.21,
+      "cy": 115.56,
+      "r": 25.63,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 2,
+      "cx": 380.17,
+      "cy": 110.93,
+      "r": 25.24,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 3,
+      "cx": 513.53,
+      "cy": 110.18,
+      "r": 26.15,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 4,
+      "cx": 654.27,
+      "cy": 109.34,
+      "r": 25.58,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 5,
+      "cx": 134.87,
+      "cy": 239.9,
+      "r": 25.73,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 6,
+      "cx": 267.82,
+      "cy": 235.02,
+      "r": 26.22,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 7,
+      "cx": 406.35,
+      "cy": 237.76,
+      "r": 26.41,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 8,
+      "cx": 535.1,
+      "cy": 234.3,
+      "r": 26.47,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 9,
+      "cx": 666.93,
+      "cy": 237.68,
+      "r": 26.35,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 10,
+      "cx": 148.07,
+      "cy": 371.45,
+      "r": 26.43,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 11,
+      "cx": 277.24,
+      "cy": 367.56,
+      "r": 26.16,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 12,
+      "cx": 406.24,
+      "cy": 373.47,
+      "r": 25.6,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 13,
+      "cx": 536.98,
+      "cy": 375.99,
+      "r": 26.47,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 14,
+      "cx": 665.39,
+      "cy": 373.11,
+      "r": 25.51,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "pattern": "grid_landmark",
+  "width": 520,
+  "height": 520,
+  "defects_applied": [
+    "inconsistent",
+    "abnormal_shape"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 110.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 210.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 310.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 410.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 110.0,
+      "cy": 210.0,
+      "r": 26.0
+    },
+    {
+      "index": 5,
+      "cx": 210.0,
+      "cy": 210.0,
+      "r": 26.0
+    },
+    {
+      "index": 6,
+      "cx": 310.0,
+      "cy": 210.0,
+      "r": 26.0
+    },
+    {
+      "index": 7,
+      "cx": 410.0,
+      "cy": 210.0,
+      "r": 26.0
+    },
+    {
+      "index": 8,
+      "cx": 110.0,
+      "cy": 310.0,
+      "r": 26.0
+    },
+    {
+      "index": 9,
+      "cx": 210.0,
+      "cy": 310.0,
+      "r": 26.0
+    },
+    {
+      "index": 10,
+      "cx": 310.0,
+      "cy": 310.0,
+      "r": 26.0
+    },
+    {
+      "index": 11,
+      "cx": 410.0,
+      "cy": 310.0,
+      "r": 26.0
+    },
+    {
+      "index": 12,
+      "cx": 110.0,
+      "cy": 410.0,
+      "r": 26.0
+    },
+    {
+      "index": 13,
+      "cx": 210.0,
+      "cy": 410.0,
+      "r": 26.0
+    },
+    {
+      "index": 14,
+      "cx": 310.0,
+      "cy": 410.0,
+      "r": 26.0
+    },
+    {
+      "index": 15,
+      "cx": 410.0,
+      "cy": 410.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 109.86,
+      "cy": 110.89,
+      "r": 25.38,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 1,
+      "cx": 210.12,
+      "cy": 110.39,
+      "r": 18.12,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 2,
+      "cx": 309.61,
+      "cy": 110.03,
+      "r": 31.58,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 3,
+      "cx": 409.48,
+      "cy": 110.45,
+      "r": 39.38,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 4,
+      "cx": 109.87,
+      "cy": 211.15,
+      "r": 29.96,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 5,
+      "cx": 210.43,
+      "cy": 210.05,
+      "r": 36.44,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 6,
+      "cx": 309.75,
+      "cy": 209.65,
+      "r": 23.56,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 7,
+      "cx": 409.79,
+      "cy": 210.02,
+      "r": 23.14,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 8,
+      "cx": 110.15,
+      "cy": 310.73,
+      "r": 38.87,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 9,
+      "cx": 210.03,
+      "cy": 309.79,
+      "r": 14.34,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 10,
+      "cx": 309.97,
+      "cy": 309.79,
+      "r": 24.5,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 11,
+      "cx": 409.5,
+      "cy": 310.76,
+      "r": 35.36,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 12,
+      "cx": 110.14,
+      "cy": 410.15,
+      "r": 35.29,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 13,
+      "cx": 210.7,
+      "cy": 409.41,
+      "r": 28.13,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 14,
+      "cx": 309.67,
+      "cy": 410.96,
+      "r": 33.85,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 15,
+      "cx": 411.24,
+      "cy": 410.54,
+      "r": 19.79,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    }
+  ]
+}

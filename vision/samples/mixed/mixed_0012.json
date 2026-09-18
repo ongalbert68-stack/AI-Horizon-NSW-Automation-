@@ -1,0 +1,100 @@
+{
+  "pattern": "pattern",
+  "width": 720,
+  "height": 480,
+  "defects_applied": [
+    "missing_carryover"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 120.0,
+      "cy": 120.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 216.0,
+      "cy": 216.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 312.0,
+      "cy": 312.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 408.0,
+      "cy": 312.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 504.0,
+      "cy": 216.0,
+      "r": 26.0
+    },
+    {
+      "index": 5,
+      "cx": 600.0,
+      "cy": 120.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 120.18,
+      "cy": 120.15,
+      "r": 26.23,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 1,
+      "cx": 215.89,
+      "cy": 216.0,
+      "r": 25.59,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 2,
+      "cx": 311.8,
+      "cy": 312.31,
+      "r": 26.64,
+      "present": true,
+      "tags": []
+    },
+    {
+      "index": 3,
+      "cx": 406.83,
+      "cy": 312.15,
+      "r": 26.35,
+      "present": false,
+      "tags": [
+        "missing"
+      ]
+    },
+    {
+      "index": 4,
+      "cx": 504.22,
+      "cy": 215.68,
+      "r": 52.04,
+      "present": true,
+      "tags": [
+        "carryover_big"
+      ]
+    },
+    {
+      "index": 5,
+      "cx": 599.97,
+      "cy": 121.22,
+      "r": 25.53,
+      "present": true,
+      "tags": []
+    }
+  ]
+}

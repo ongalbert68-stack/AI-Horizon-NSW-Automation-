@@ -1,0 +1,53 @@
+Here it assumes dispense system is in circular dot patterns
+
+DISPENSE TYPES
+Dispensory pattern types:
+1. Perimeter
+2. Area
+3. Pattern
+4. Custom grid-based landmark (custom width, height, grid resolution)
+5. Custom grid-based line-tracing alternating dots (custom line, width, height, grid resolution)
+
+
+DISPENSORY ISSUES
+Common dispense dots-only issues:
+1. Smearing, stringing, satellites
+2. Missing dots
+3. Big/Small dots
+4. Air bubble
+5. Abnormal shape
+6. Overrun (over certain size or area)
+7. Dragged
+8. Misaligned
+9. Bridging dots
+10. Ghost
+11. Inconsistent size, shape, volume
+12. Line-dispense start-end defects
+13. Contamination speck
+14. Double-dispense
+*same class type: small/big/missing dots as leftover get carries to the next
+
+Common dispense issues:
+1. Needle blockage
+
+Issues better diagnosed with 3D scope:
+1. Air bubble
+2. Insufficient deposit height
+3. Dam height/width profile
+4. Laser profiling
+5. Pointed vs flat dot-dome profile
+
+Scope (For CV only):
+1. Synthetic data should include all individual issue and mixed issues.
+2. 2D black and white only image, exclude all 3D scope except #1
+3. No height profile, only 2D flat screen
+
+
+PARAMETERS
+Common dispensory programming parameters:
+1. Dispense height
+2. Up height
+3. Dispense time
+4. Dwell time
+5. ON delay
+6. OFF delay

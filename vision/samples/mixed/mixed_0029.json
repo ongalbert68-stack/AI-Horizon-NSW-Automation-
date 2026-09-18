@@ -1,0 +1,94 @@
+{
+  "pattern": "line_trace",
+  "width": 850,
+  "height": 460,
+  "defects_applied": [
+    "double_dispense",
+    "air_bubble",
+    "misaligned"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 100.0,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 262.5,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 425.0,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 587.5,
+      "cy": 230.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 750.0,
+      "cy": 230.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 99.95,
+      "cy": 230.4,
+      "r": 25.97,
+      "present": true,
+      "tags": [
+        "air_bubble"
+      ]
+    },
+    {
+      "index": 1,
+      "cx": 262.2,
+      "cy": 229.98,
+      "r": 25.44,
+      "present": true,
+      "tags": [
+        "double_dispense"
+      ]
+    },
+    {
+      "index": 2,
+      "cx": 424.91,
+      "cy": 236.77,
+      "r": 26.08,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 3,
+      "cx": 592.33,
+      "cy": 224.19,
+      "r": 26.03,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    },
+    {
+      "index": 4,
+      "cx": 760.74,
+      "cy": 232.51,
+      "r": 25.82,
+      "present": true,
+      "tags": [
+        "misaligned"
+      ]
+    }
+  ]
+}

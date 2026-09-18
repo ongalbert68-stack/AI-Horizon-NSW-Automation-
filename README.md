@@ -1,96 +1,106 @@
-# AI Horizon — NSW Automation
+# AI Horizon Solution Challenge 2026
 
-## Case desk (frontend/ + backend/)
+Four prototypes across the two challenge tracks. Within each track, **A** and **B**
+answer the same brief with opposite bets on where the reasoning should live.
 
-A FastAPI + PostgreSQL backend and a Next.js/shadcn frontend for tracking
-dispense-defect investigations, built around this ERD:
+| | Prototype A | Prototype B |
+|---|---|---|
+| **NSW Automation** | Diagnostic Interviewer — the model runs the interview and ranks causes | Dispensing Metrology Instrument — OpenCV measures the deposits, a weighted fault tree ranks causes from those measurements |
+| **Exabytes** | Guided Assessment — five questions to a transformation blueprint | Zero-Input Auditor — the live website is inspected first, maturity is scored from observed evidence |
 
-```
-DispenseStation ──┐          DispenseProfile ──▶ FluidMaterial
-  (the machine)    │ ran on    (the job)
-                    ▼
-                  Case ──1..n──▶ CheckResult
-             (one problem)   (the loop log)
-```
+The axis is deliberate. **A** is an *assistant*: broad coverage, natural follow-ups,
+fast to build, but its percentages are asserted by the model. **B** is an
+*instrument*: it measures something real, computes every number in code, and can
+show the arithmetic behind any figure — at the cost of covering only what it models.
 
-- **backend/** — FastAPI, SQLAlchemy models for the ERD, Alembic migrations,
-  a router per resource under `/api`, interactive docs at `/docs`.
-- **frontend/** — Next.js App Router, shadcn/ui (Base UI) components, a
-  Cmd/Ctrl+K command palette for keyboard nav, and a TanStack
-  Table + Virtual list for cases.
+Both briefs demand exactly this distinction. NSW asks for *"logical reasoning,
+rather than simply generating generic answers"*; Exabytes asks for *"evidence-based
+analysis"* instead of *"generic AI output"*.
 
-### Quickstart
-
-Three pieces, three terminals — Postgres, then backend, then frontend.
-
-**1. PostgreSQL**
+## Running it
 
 ```bash
-cp .env.example .env
-docker compose up -d      # or: podman compose up -d
+# Web app — all four prototypes
+cd web && npm install && npm run dev        # http://localhost:3000
+
+# Metrology service — required by NSW Prototype B only
+cd vision && uv venv && uv pip install -r <(echo -e "fastapi\nuvicorn[standard]\nopencv-python-headless\nnumpy\npython-multipart")
+.venv/bin/uvicorn main:app --port 8000
 ```
 
-Runs on **port 5433** (not 5432 — avoids clashing with other local Postgres
-containers). Change `POSTGRES_PORT` in `.env` if 5433 is also taken.
+Copy `web/.env.example` to `web/.env.local` and add a `GROQ_API_KEY` to enable the
+A variants. Without a key they fall back to the deterministic baseline **and say so
+on screen** — so a demo never dies on a failed network call.
 
-**2. Backend** (FastAPI, in `backend/`)
+## Architecture
+
+```
+web/
+  core/        types · Groq adapter (with offline fallback) · log-odds inference · math
+  packs/nsw/   fault tree: 7 causes, weighted rules, defect taxonomy
+  packs/exa/   maturity rubric · service catalog · pain-point model · ROI
+  engines/     llmReasoner (A) · deterministic (B) — same Engine interface
+  app/         4 prototype routes over one shared Assessment component
+vision/        OpenCV metrology service + synthetic samples + oracle tests
+```
+
+A track and an engine are swapped independently, so the four prototypes are four
+configurations of one system rather than four codebases.
+
+### How B ranks a cause
+
+Each cause starts at a prior. Every matching rule adds a weight in **log-odds**,
+and the sum is squashed back into a probability. Nothing asserts a percentage — it
+is derived, and the UI can show every contributing term. Worked example, which
+reproduces the NSW brief's own illustration:
+
+> Occasional deviation + random positions + new material lot
+> → **Air entrapment, 92%** — *"the deviation is occasional rather than continuous,
+> and an air slug passing through the fluid path is one of the few faults that comes
+> and goes; a blockage or a mis-set parameter would deviate on every shot."*
+
+### How B measures a deposit
+
+Classical computer vision, deliberately — **no training data required**, and every
+number is reproducible by an engineer with a microscope:
+
+| Measurement | Method | Detects |
+|---|---|---|
+| Segmentation | Otsu threshold, polarity auto-detected | deposits vs substrate |
+| Size dispersion | coefficient of variation of blob area | inconsistent volume |
+| Shape | isoperimetric ratio `4πA/P²` | tailing, irregular geometry |
+| Position | least-squares fit to a lattice per row | placement drift |
+| Missing | lattice gaps **and** short rows | missing deposits |
+
+Run the oracle tests (each sample encodes a known defect):
 
 ```bash
-cd backend
-cp .env.example .env      # POSTGRES_* here must match the root .env
-uv sync
-uv run alembic upgrade head
-uv run python -m app.seed          # optional sample data
-uv run uvicorn app.main:app --reload
+cd vision && .venv/bin/python test_metrology.py     # 26/26
 ```
 
-→ http://localhost:8000, docs at http://localhost:8000/docs. `backend/.env`'s
-`POSTGRES_HOST=localhost` + `POSTGRES_PORT=5433` is what connects it to the
-container from step 1.
+Samples are generated by a composable synthetic-data pipeline (`vision/synth/`):
+layouts (5 dispense pattern types) → defect operators (16 classes, matched to
+`docs/personal/img_type.txt`) → renderer, with defects applying as independent
+mutations to a shared per-dot spec so classes compose into mixed-issue images
+instead of needing bespoke code per combination. `generate_samples.py`
+regenerates the deterministic single-defect oracle set used above, and
+`--mixed N` additionally writes N randomly-combined images with a per-dot
+ground-truth JSON sidecar per image.
 
-**3. Frontend** (Next.js, in `frontend/`)
+## Known limitations
 
-```bash
-cd frontend
-cp .env.local.example .env.local
-pnpm install
-pnpm dev
-```
+State these before a judge finds them.
 
-→ http://localhost:3000. `NEXT_PUBLIC_API_BASE_URL` in `.env.local` is what
-points it at the backend from step 2.
-
-**Check the three are actually talking to each other:**
-
-```bash
-curl http://localhost:8000/api/health        # backend is up
-curl http://localhost:8000/api/cases          # backend reached Postgres (200 + JSON, even if empty)
-```
-
-Then open http://localhost:3000/cases — if the seeded case (or an empty
-"no cases yet" state, not an error) shows up, all three are connected.
-
-See `backend/README.md` and `frontend/README.md` for more detail on each
-side.
-
-### Optional: LLM reasoner (Groq / openai/gpt-oss-20b)
-
-Nothing above needs this — the API and UI run fully without it. To enable
-the LLM reasoner step for case diagnosis:
-
-1. Get a free key at https://console.groq.com/keys.
-2. Set `GROQ_API_KEY` in `backend/.env` (`GROQ_MODEL` already defaults to
-   `openai/gpt-oss-20b` — Groq's current small/fast/free-tier model;
-   `llama-3.1-8b-instant`, the original pick, was retired from Groq's
-   catalog).
-3. Restart the backend.
-
-A blank `GROQ_API_KEY` just means that code path is unavailable — nothing
-else in the API depends on it.
-
-## Existing prototype (App.py, Bridge.py, Memory.py, Retrieval.py)
-
-The Streamlit + ChromaDB + SQLite prototype at the repo root is untouched
-by the above — it's a separate, earlier proof of concept for the
-retrieval/diagnosis flow and keeps its own `dispensing_history.db` and
-`chroma_db/`.
+- **Nominal deposit area is inferred from the median** when no recipe target is
+  supplied, which assumes most deposits are in spec. Pass `target_area` to measure
+  against the true nominal instead.
+- **Measurements are in pixels, not microns.** A scale reference or known pitch is
+  needed for absolute volume.
+- **The web probe reads served HTML only.** Client-rendered sites are flagged
+  (`js_rendered`) and their content checks caveated, but not executed.
+- **Catalog prices are indicative placeholders.** Verify against exabytes.my before
+  quoting them anywhere.
+- **The fault tree covers seven causes.** It is a preliminary triage aid, not a
+  replacement for an engineer — which is what the NSW brief asks for.
+- **Prototype A is not reproducible.** The same input can produce different
+  rankings. That is the tradeoff being tested, and it is labelled in the UI.

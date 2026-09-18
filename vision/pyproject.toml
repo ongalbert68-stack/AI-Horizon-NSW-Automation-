@@ -1,0 +1,29 @@
+[project]
+name = "dispensing-metrology"
+version = "1.0.0"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "opencv-python-headless>=4.10",
+    "numpy>=2.0",
+    "python-multipart>=0.0.12",
+]
+
+[tool.pyrefly]
+python-interpreter-path = ".venv/bin/python"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+# Makes this project installable (editable) so pipeline/backend can import
+# `detect` in-process via the uv workspace, without changing how vision/ is
+# run standalone (uv run, main.py, detect.run, .venv all unaffected).
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["detect"]
+

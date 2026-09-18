@@ -1,6 +1,0 @@
-{
-  "include": ["app", "alembic"],
-  "venvPath": ".",
-  "venv": ".venv",
-  "typeCheckingMode": "basic"
-}

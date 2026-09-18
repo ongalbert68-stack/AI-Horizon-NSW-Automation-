@@ -1,0 +1,254 @@
+{
+  "pattern": "area",
+  "width": 740,
+  "height": 480,
+  "defects_applied": [
+    "air_bubble",
+    "inconsistent",
+    "smearing"
+  ],
+  "profile": [
+    {
+      "index": 0,
+      "cx": 110.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 1,
+      "cx": 240.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 2,
+      "cx": 370.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 3,
+      "cx": 500.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 4,
+      "cx": 630.0,
+      "cy": 110.0,
+      "r": 26.0
+    },
+    {
+      "index": 5,
+      "cx": 110.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 6,
+      "cx": 240.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 7,
+      "cx": 370.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 8,
+      "cx": 500.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 9,
+      "cx": 630.0,
+      "cy": 240.0,
+      "r": 26.0
+    },
+    {
+      "index": 10,
+      "cx": 110.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 11,
+      "cx": 240.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 12,
+      "cx": 370.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 13,
+      "cx": 500.0,
+      "cy": 370.0,
+      "r": 26.0
+    },
+    {
+      "index": 14,
+      "cx": 630.0,
+      "cy": 370.0,
+      "r": 26.0
+    }
+  ],
+  "dots": [
+    {
+      "index": 0,
+      "cx": 111.99,
+      "cy": 111.33,
+      "r": 25.54,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 1,
+      "cx": 240.73,
+      "cy": 110.2,
+      "r": 30.3,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 2,
+      "cx": 370.74,
+      "cy": 109.54,
+      "r": 34.01,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 3,
+      "cx": 500.25,
+      "cy": 109.83,
+      "r": 36.71,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 4,
+      "cx": 629.17,
+      "cy": 110.33,
+      "r": 26.01,
+      "present": true,
+      "tags": [
+        "air_bubble"
+      ]
+    },
+    {
+      "index": 5,
+      "cx": 109.25,
+      "cy": 238.88,
+      "r": 35.38,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 6,
+      "cx": 240.19,
+      "cy": 240.34,
+      "r": 25.2,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 7,
+      "cx": 369.62,
+      "cy": 240.7,
+      "r": 31.95,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 8,
+      "cx": 500.72,
+      "cy": 239.77,
+      "r": 18.05,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 9,
+      "cx": 629.27,
+      "cy": 240.02,
+      "r": 23.76,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 10,
+      "cx": 109.77,
+      "cy": 370.18,
+      "r": 33.71,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 11,
+      "cx": 239.47,
+      "cy": 370.67,
+      "r": 30.93,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 12,
+      "cx": 369.6,
+      "cy": 371.11,
+      "r": 17.72,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 13,
+      "cx": 500.32,
+      "cy": 370.77,
+      "r": 23.33,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    },
+    {
+      "index": 14,
+      "cx": 630.05,
+      "cy": 370.43,
+      "r": 23.96,
+      "present": true,
+      "tags": [
+        "inconsistent"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "key": "size_cv",
+    "label": "Deposit size spread (coefficient of variation)",
+    "value": 0.486,
+    "unit": "ratio",
+    "note": "Population standard deviation of dots[].area_ratio divided by its mean, over the 15 detected deposits in cv_output.json. vision/main.py reports the same value (0.4859). Above the 0.15 threshold web/packs/nsw/index.ts uses."
+  },
+  {
+    "key": "mean_circularity",
+    "label": "Mean deposit circularity",
+    "value": 0.896,
+    "unit": "ratio",
+    "note": "Mean of dots[].circularity. Above the 0.80 threshold for tailing or irregular shape."
+  },
+  {
+    "key": "missing_count",
+    "label": "Missing deposits",
+    "value": 0,
+    "unit": "count",
+    "note": "Dots in cv_output.json tagged missing."
+  },
+  {
+    "key": "oversized_count",
+    "label": "Oversized deposits",
+    "value": 3,
+    "unit": "count",
+    "note": "Dots tagged oversized (area above 1.40x the recipe's nominal area)."
+  },
+  {
+    "key": "undersized_count",
+    "label": "Undersized deposits",
+    "value": 4,
+    "unit": "count",
+    "note": "Dots tagged undersized (area below 0.70x the recipe's nominal area)."
+  },
+  {
+    "key": "small_dot_count",
+    "label": "Small dots with a following dot",
+    "value": 4,
+    "unit": "count",
+    "note": "Dots tagged missing or undersized that are not the last dot in dispense order. Dispense order is the profile index order, which holds for every vision/synth layout; a real recipe must supply it."
+  },
+  {
+    "key": "small_then_big_count",
+    "label": "Small dots followed by an oversized dot",
+    "value": 1,
+    "unit": "count",
+    "note": "Of the small dots above, how many have an oversized dot next in dispense order (dot 9 -> 10). The documented carryover signature (matc82 sec 3.5)."
+  },
+  {
+    "key": "oversized_share",
+    "label": "Chance that a given dot is oversized",
+    "value": 0.214,
+    "unit": "ratio",
+    "note": "Oversized dots among dispense positions 2..15 (the positions that can follow another dot): 3 of 14."
+  },
+  {
+    "key": "small_then_big_chance_p",
+    "label": "Probability of this many small-then-big pairs by chance",
+    "value": 0.619,
+    "unit": "probability",
+    "note": "Binomial probability of at least small_then_big_count successes in small_dot_count tries at oversized_share. 0.619 means the observed pairing is what random placement produces most of the time."
+  }
+]

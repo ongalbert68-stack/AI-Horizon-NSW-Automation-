@@ -1,0 +1,65 @@
+[
+  {
+    "key": "size_cv",
+    "label": "Deposit size spread (coefficient of variation)",
+    "value": 0.735,
+    "unit": "ratio",
+    "note": "Population standard deviation of dots[].area_ratio divided by its mean, over the 12 deposits that were actually dispensed. vision/main.py reports the same value (0.7352). Driven by the three oversized carries, not by general scatter: the other nine deposits sit between 0.85 and 1.01."
+  },
+  {
+    "key": "mean_circularity",
+    "label": "Mean deposit circularity",
+    "value": 0.889,
+    "unit": "ratio",
+    "note": "Mean of dots[].circularity over the dispensed deposits. Above the 0.80 threshold, so the oversized deposits are round rather than smeared."
+  },
+  {
+    "key": "missing_count",
+    "label": "Missing deposits",
+    "value": 3,
+    "unit": "count",
+    "note": "Profile positions with no deposit: dots 0, 6 and 9 in dispense order."
+  },
+  {
+    "key": "oversized_count",
+    "label": "Oversized deposits",
+    "value": 3,
+    "unit": "count",
+    "note": "Dots 1, 7 and 10, measuring 3.41x to 4.01x the recipe's nominal area."
+  },
+  {
+    "key": "undersized_count",
+    "label": "Undersized deposits",
+    "value": 0,
+    "unit": "count",
+    "note": "No deposit is small; the starved shots are absent altogether."
+  },
+  {
+    "key": "small_dot_count",
+    "label": "Small dots with a following dot",
+    "value": 3,
+    "unit": "count",
+    "note": "Dots tagged missing or undersized that are not last in dispense order. Dispense order is the profile index order, which holds for every vision/synth layout; a real recipe must supply it."
+  },
+  {
+    "key": "small_then_big_count",
+    "label": "Small dots followed by an oversized dot",
+    "value": 3,
+    "unit": "count",
+    "note": "All three misses are followed immediately by an oversized deposit (0->1, 6->7, 9->10). This is the signature matc82 sec 3.5 describes."
+  },
+  {
+    "key": "oversized_share",
+    "label": "Chance that a given dot is oversized",
+    "value": 0.214,
+    "unit": "ratio",
+    "note": "Oversized dots among dispense positions 2..15 (the positions that can follow another dot): 3 of 14."
+  },
+  {
+    "key": "small_then_big_chance_p",
+    "label": "Probability of this many small-then-big pairs by chance",
+    "value": 0.0098,
+    "unit": "probability",
+    "note": "Binomial probability of at least small_then_big_count successes in small_dot_count tries at oversized_share. About 1%, so the pairing is unlikely to be coincidence."
+  }
+]

@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b0f14;
+  --panel: #121820;
+  --panel-2: #171f29;
+  --line: #243040;
+  --ink: #e8eef6;
+  --muted: #8ea0b5;
+  --accent: #4da3ff;
+  --good: #46d19a;
+  --warn: #ffb545;
+  --bad: #ff6b6b;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel2: var(--panel-2);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The PDF report bonus, without a PDF library: print to PDF from the browser. */
+@media print {
+  :root { --bg: #fff; --panel: #fff; --panel-2: #f6f8fa; --line: #d4dde8; --ink: #0b0f14; --muted: #4a5a6e; }
+  html, body { background: #fff !important; color: #000 !important; }
+  .no-print { display: none !important; }
+  .print-break { break-inside: avoid; }
+  main { max-width: 100% !important; padding: 0 !important; }
+}

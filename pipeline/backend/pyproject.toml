@@ -1,0 +1,33 @@
+[project]
+name = "nsw-pipeline-backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "alembic>=1.20.0",
+    "dispensing-metrology",
+    "fastapi>=0.141.1",
+    "httpx>=0.28.1",
+    "pydantic-settings>=2.15.0",
+    "sqlalchemy>=2.0",
+    "uvicorn[standard]>=0.53.0",
+]
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.414",
+    "ruff>=0.16.8",
+]
+
+[tool.uv.sources]
+dispensing-metrology = { workspace = true }
+
+[tool.ruff.lint]
+# B008: FastAPI's `Depends(...)`/`File(...)` as a default argument is the
+# documented, idiomatic pattern, not the mutable-default footgun this rule
+# targets.
+ignore = ["B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"alembic/versions/*" = ["UP007", "UP035"]
