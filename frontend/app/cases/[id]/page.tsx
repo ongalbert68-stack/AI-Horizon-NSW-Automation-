@@ -1,13 +1,14 @@
 "use client";
 
-import { Compass } from "lucide-react";
+import { Compass, ListTree, Wrench } from "lucide-react";
 
 import * as React from "react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
@@ -34,7 +35,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { TierInfo } from "@/components/tier-info";
 import { ApiError } from "@/lib/api/client";
 import { createCheckResult, getCase } from "@/lib/api/cases";
-import type { Case, CheckOutcome } from "@/lib/api/types";
+import { listMaterials } from "@/lib/api/materials";
+import { listProfiles } from "@/lib/api/profiles";
+import { listStations } from "@/lib/api/stations";
+import type {
+  Case, CheckOutcome, DispenseProfile, DispenseStation, FluidMaterial,
+} from "@/lib/api/types";
 import { ProfileGeometryPattern } from "@/components/profile-geometry-pattern";
 
 function yesNo(value: boolean) {
@@ -101,13 +107,26 @@ export default function CaseDetailPage() {
             {caseData.resolved ? "resolved" : "open"}
           </Badge>
           <TierInfo />
+          {/* Gated on !caseData.resolved — the same field the status badge
+              above reads — rather than !caseData.closed_at, which can drift
+              out of sync with `resolved` and wrongly hide this link. */}
+          {!caseData.resolved && (
+            <Link
+              href={`/troubleshoot/${caseData.case_id}`}
+              className={buttonVariants({ size: "sm", className: "gap-1.5" })}
+            >
+              <Wrench className="size-3.5" />
+              {caseData.ranking || caseData.fingerprint ? "Continue troubleshooting" : "Start troubleshooting"}
+            </Link>
+          )}
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between gap-2">
             <CardTitle className="text-base">Station</CardTitle>
+            <BrowseStationsDialog />
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <Field label="Name" value={caseData.station.name} />
@@ -120,8 +139,9 @@ export default function CaseDetailPage() {
         </Card>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between gap-2">
             <CardTitle className="text-base">Material</CardTitle>
+            <BrowseMaterialsDialog />
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <Field label="Name" value={caseData.profile.material.name} />
@@ -140,8 +160,9 @@ export default function CaseDetailPage() {
         </Card>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between gap-2">
             <CardTitle className="text-base">Profile</CardTitle>
+            <BrowseProfilesDialog />
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <Field label="Name" value={caseData.profile.name} />
@@ -272,6 +293,137 @@ function Field({ label, value }: { label: string; value: string }) {
   );
 }
 
+/**
+ * Read-only "browse all" affordance for Station/Material/Profile, so the
+ * operator can cross-reference this case's assignment against the full
+ * list without it becoming an edit-in-place — the case's station_id /
+ * profile_id stay fixed here. Reuses the Select pattern and
+ * listStations/listMaterials/listProfiles calls from app/cases/new/page.tsx
+ * (the only other place a full list is fetched); a plain Select is used as
+ * a searchable, scrollable list rather than a bound form control — nothing
+ * is submitted on selection.
+ */
+function BrowseListDialog<T>({
+  trigger,
+  title,
+  description,
+  load,
+  itemKey,
+  itemLabel,
+  itemSublabel,
+}: {
+  trigger: React.ReactNode;
+  title: string;
+  description: string;
+  load: () => Promise<{ items: T[] }>;
+  itemKey: (item: T) => number;
+  itemLabel: (item: T) => string;
+  itemSublabel?: (item: T) => string;
+}) {
+  const [open, setOpen] = React.useState(false);
+  const [items, setItems] = React.useState<T[] | null>(null);
+  const [selected, setSelected] = React.useState<string>("");
+
+  React.useEffect(() => {
+    if (!open || items !== null) return;
+    load()
+      .then((page) => setItems(page.items))
+      .catch(() => toast.error("Could not load the full list."));
+  }, [open, items, load]);
+
+  const activeItem = items?.find((item) => String(itemKey(item)) === selected) ?? null;
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger render={trigger as React.ReactElement} />
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          {items === null ? (
+            <Skeleton className="h-9 w-full" />
+          ) : (
+            <Select value={selected} onValueChange={(v) => setSelected(v ?? "")}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={`Search ${items.length} record(s)…`} />
+              </SelectTrigger>
+              <SelectContent>
+                {items.map((item) => (
+                  <SelectItem key={itemKey(item)} value={String(itemKey(item))}>
+                    {itemLabel(item)}
+                    {itemSublabel ? ` · ${itemSublabel(item)}` : ""}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+          {activeItem && (
+            <pre className="max-h-64 overflow-auto rounded-md border bg-muted/40 p-3 text-xs">
+              {JSON.stringify(activeItem, null, 2)}
+            </pre>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function BrowseStationsDialog() {
+  return (
+    <BrowseListDialog<DispenseStation>
+      trigger={
+        <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground">
+          <ListTree className="size-3.5" /> Browse all
+        </Button>
+      }
+      title="All dispense stations"
+      description="Cross-reference only — this case's assigned station is unchanged by browsing here."
+      load={() => listStations({ limit: 200 })}
+      itemKey={(s) => s.station_id}
+      itemLabel={(s) => s.name}
+      itemSublabel={(s) => s.line}
+    />
+  );
+}
+
+function BrowseMaterialsDialog() {
+  return (
+    <BrowseListDialog<FluidMaterial>
+      trigger={
+        <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground">
+          <ListTree className="size-3.5" /> Browse all
+        </Button>
+      }
+      title="All fluid materials"
+      description="Cross-reference only — this case's material lot is unchanged by browsing here."
+      load={() => listMaterials({ limit: 200 })}
+      itemKey={(m) => m.material_id}
+      itemLabel={(m) => m.name}
+      itemSublabel={(m) => m.family.replaceAll("_", " ")}
+    />
+  );
+}
+
+function BrowseProfilesDialog() {
+  return (
+    <BrowseListDialog<DispenseProfile>
+      trigger={
+        <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground">
+          <ListTree className="size-3.5" /> Browse all
+        </Button>
+      }
+      title="All dispense profiles"
+      description="Cross-reference only — this case's assigned profile is unchanged by browsing here."
+      load={() => listProfiles({ limit: 200 })}
+      itemKey={(p) => p.profile_id}
+      itemLabel={(p) => p.name}
+      itemSublabel={(p) => p.material.name}
+    />
+  );
+}
+
 function LogCheckDialog({
   caseId,
   nextSequence,
@@ -306,6 +458,12 @@ function LogCheckDialog({
         cost_minutes: null,
         invasive: false,
         safety_note: null,
+        // This quick-log dialog predates is_change (added for the ported
+        // troubleshoot wizard's action_count fix); it doesn't surface a
+        // look-vs-change toggle, so it conservatively logs as "observed
+        // only" rather than guessing. Use the wizard for a check that
+        // should count toward action_count.
+        is_change: false,
         outcome: outcome || null,
         result_detail: resultDetail || null,
         performed_at: new Date().toISOString(),

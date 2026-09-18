@@ -14,7 +14,9 @@ export class ApiError extends Error {
 interface RequestOptions {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   body?: unknown;
-  searchParams?: Record<string, string | number | undefined>;
+  /** Multipart body (e.g. a photo upload) — mutually exclusive with `body`. */
+  formData?: FormData;
+  searchParams?: Record<string, string | number | boolean | undefined>;
   signal?: AbortSignal;
 }
 
@@ -30,12 +32,15 @@ function buildUrl(path: string, searchParams?: RequestOptions["searchParams"]): 
 
 /** Thin fetch wrapper shared by every resource client below. */
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
-  const { method = "GET", body, searchParams, signal } = options;
+  const { method = "GET", body, formData, searchParams, signal } = options;
 
   const response = await fetch(buildUrl(path, searchParams), {
     method,
-    headers: body !== undefined ? { "Content-Type": "application/json" } : undefined,
-    body: body !== undefined ? JSON.stringify(body) : undefined,
+    headers:
+      formData === undefined && body !== undefined
+        ? { "Content-Type": "application/json" }
+        : undefined,
+    body: formData ?? (body !== undefined ? JSON.stringify(body) : undefined),
     signal,
   });
 

@@ -6,9 +6,12 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "alembic>=1.20.0",
+    "dispensing-metrology",
     "fastapi>=0.141.1",
+    "httpx>=0.28.0",
     "psycopg[binary]>=3.3.5",
     "pydantic-settings>=2.15.0",
+    "python-multipart>=0.0.20",
     "sqlalchemy>=2.0",
     "uvicorn[standard]>=0.53.0",
 ]
@@ -18,6 +21,9 @@ dev = [
     "pyright>=1.1.414",
     "ruff>=0.16.8",
 ]
+
+[tool.uv.sources]
+dispensing-metrology = { path = "./vendor/dispensing-metrology" }
 
 [tool.ruff.lint]
 # B008: FastAPI's `Depends(...)` as a default argument is the documented,

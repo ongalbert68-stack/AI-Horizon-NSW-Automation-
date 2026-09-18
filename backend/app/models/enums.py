@@ -38,3 +38,12 @@ class CheckOutcome(str, enum.Enum):
     CONFIRMS = "confirms"
     RULES_OUT = "rules_out"
     INCONCLUSIVE = "inconclusive"
+
+
+class RankTier(str, enum.Enum):
+    """Step 5's confidence tier — T1..T4, see domains/ranking/tier.py."""
+
+    T1 = "T1"
+    T2 = "T2"
+    T3 = "T3"
+    T4 = "T4"

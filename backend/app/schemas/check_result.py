@@ -13,6 +13,7 @@ class CheckResultBase(BaseModel):
     cost_minutes: float | None = None
     invasive: bool = False
     safety_note: str | None = None
+    is_change: bool = False
     outcome: CheckOutcome | None = None
     result_detail: str | None = None
     performed_at: datetime | None = None
@@ -29,6 +30,7 @@ class CheckResultUpdate(BaseModel):
     cost_minutes: float | None = None
     invasive: bool | None = None
     safety_note: str | None = None
+    is_change: bool | None = None
     outcome: CheckOutcome | None = None
     result_detail: str | None = None
     performed_at: datetime | None = None

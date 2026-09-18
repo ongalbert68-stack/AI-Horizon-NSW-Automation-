@@ -27,6 +27,10 @@ class CheckResult(Base):
     invasive: Mapped[bool] = mapped_column(Boolean, default=False)
     safety_note: Mapped[str | None] = mapped_column(Text, default=None)
 
+    is_change: Mapped[bool] = mapped_column(Boolean, default=False)
+    """Did this iteration *alter* the machine, tooling or material, or only observe
+    it? Only changes count toward Case.action_count — see Case.action_count."""
+
     outcome: Mapped[CheckOutcome | None] = mapped_column(
         Enum(CheckOutcome, name="check_outcome", native_enum=True), default=None
     )

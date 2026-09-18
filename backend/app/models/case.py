@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
-from app.models.enums import CaseTier, DiagnosedState
+from app.models.enums import CaseTier, DiagnosedState, RankTier
 
 if TYPE_CHECKING:
     from app.models.check_result import CheckResult
@@ -49,6 +49,21 @@ class Case(Base):
     # -- pre-existing: what was done before intake, kept out of action_count --
     pre_intake_actions: Mapped[list[str] | None] = mapped_column(JSONB, default=None)
 
+    # -- step 3: raw detect() report + quality-gate verdict, kept for the report to cite --
+    vision_result: Mapped[dict | None] = mapped_column(JSONB, default=None)
+
+    # -- step 5: live ranking state {pass1, pass2, gate_a, gate_b, rank_tier, top_cause_id, runners_up} --
+    ranking: Mapped[dict | None] = mapped_column(JSONB, default=None)
+    rank_tier: Mapped[RankTier | None] = mapped_column(
+        Enum(RankTier, name="rank_tier", native_enum=True), default=None
+    )
+
+    # -- W7: at most one LLM use each per case, tracked for UI/report visibility and so a
+    # retry can't silently re-spend budget the session doesn't have --
+    llm_map_used: Mapped[bool] = mapped_column(Boolean, default=False)
+    llm_critic_used: Mapped[bool] = mapped_column(Boolean, default=False)
+    llm_explain_used: Mapped[bool] = mapped_column(Boolean, default=False)
+
     # -- diagnosis: {cause_id, runners_up[], confirmed_by: {check, result}} --
     diagnosis: Mapped[dict | None] = mapped_column(JSONB, default=None)
 
@@ -79,5 +94,17 @@ class Case(Base):
 
     @property
     def action_count(self) -> int:
-        """Derived, never stored — counting is what keeps post-hoc reasoning out."""
-        return len(self.check_results)
+        """Derived, never stored — counting is what keeps post-hoc reasoning out.
+
+        Counts *changes*, not iterations: looking at something twice is not "two
+        changes at once" (see CheckResult.is_change). Counting every logged
+        iteration instead — the original ``len(check_results)`` — punished the
+        operator who investigated properly: a second observation permanently
+        disqualified the case from CONFIRMED."""
+        return sum(1 for check in self.check_results if check.is_change)
+
+    @property
+    def observation_count(self) -> int:
+        """The other half of the loop log — free to run as often as the operator
+        likes, and deliberately not penalised at close."""
+        return sum(1 for check in self.check_results if not check.is_change)

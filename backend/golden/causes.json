@@ -1,0 +1,72 @@
+{
+  "about": "Candidate causes shared by every golden case. Each lists its sources, what an image of dots would show if it were acting (only where a source says so), and the matching cause id(s) in web/packs/nsw/index.ts.",
+  "sources": {
+    "matc82": "docs/personal/matc82.pdf -- NPL Report MATC(A)82, A Guide to Best Practice for Electronic Materials Dispensing (2001). Page numbers are the printed page numbers, which match the PDF page index.",
+    "brief": "docs/NSW Automation .pdf -- AI Dispensing Defect Detective, NSW Automation challenge brief. Pages are PDF page index (the brief has no printed numbers)."
+  },
+  "causes": [
+    {
+      "id": "volume_too_small_carryover",
+      "label": "Dispensed volume too small to wet the pad (big dot / small dot)",
+      "sources": ["matc82 sec 3.5 p.18-19", "matc82 sec 4.5 p.25", "matc82 sec 5.5 p.31", "matc82 sec 2.6 p.8-9"],
+      "image_signature": "A very small or missing dot, followed by a larger over-sized dot at the next deposition point in dispense order.",
+      "image_signature_note": "matc82 sec 3.5 p.18 and Figure 17.",
+      "current_pack_ids": [],
+      "mapping_note": "No equivalent cause in the current pack."
+    },
+    {
+      "id": "pressure_time_instability",
+      "label": "Pressure-time dispensing variability (pressure or dispense time not stable)",
+      "sources": ["matc82 sec 2.1 p.6", "matc82 sec 3.2 p.16", "matc82 sec 4.2 p.22", "matc82 sec 5.2 p.28", "brief p.3"],
+      "image_signature": null,
+      "image_signature_note": "Sources describe variable volumes and, for solder paste and ICA, missed dots -- but no pattern across positions or dispense order.",
+      "current_pack_ids": ["parameter_drift"],
+      "mapping_note": "Partial match: the pack's parameter_drift rules model a mis-set parameter (recent adjustment, error in one direction), not the shot-to-shot variability matc82 attributes to pressure-time systems."
+    },
+    {
+      "id": "air_in_fluid_path",
+      "label": "Air trapped in the syringe or material supply",
+      "sources": ["brief p.3", "brief p.4"],
+      "image_signature": null,
+      "image_signature_note": "The brief links air to volume that changes occasionally rather than continuously -- a pattern over time, not within one image. matc82 mentions air entrapment only for underfills (sec 7.2 p.38) and glob tops (sec 6.5 p.37), never for dot dispensing.",
+      "current_pack_ids": ["air_entrapment"],
+      "mapping_note": "Direct match."
+    },
+    {
+      "id": "material_rheology_change",
+      "label": "Material viscosity or condition change",
+      "sources": ["brief p.3", "matc82 sec 2.5 p.8", "matc82 sec 2.9.1 p.13", "matc82 sec 3.2 p.16"],
+      "image_signature": null,
+      "image_signature_note": "Sources describe volume changing over time (curing, ambient temperature, settling in the syringe, heating from repeated pressurising), not a pattern within one array.",
+      "current_pack_ids": ["viscosity_change", "material_condition"],
+      "mapping_note": "The pack splits this into two causes."
+    },
+    {
+      "id": "nozzle_blockage",
+      "label": "Partial nozzle or needle blockage",
+      "sources": ["brief p.4", "matc82 sec 3.1 p.15-16", "matc82 sec 4.1 p.22", "matc82 sec 5.1 p.27"],
+      "image_signature": null,
+      "image_signature_note": "No source describes how a blockage looks in an image of dots.",
+      "current_pack_ids": ["nozzle_blockage"],
+      "mapping_note": "Direct match."
+    },
+    {
+      "id": "dispense_height_or_board_bending",
+      "label": "Wrong dispense height, or board bent during clamping",
+      "sources": ["matc82 sec 2.7 p.11", "matc82 sec 2.8 p.12"],
+      "image_signature": "Deposit shape changes with position on the board: squat where the needle sits low, tall where it sits high.",
+      "image_signature_note": "matc82 sec 2.8 p.12, Figures 9 and 10.",
+      "current_pack_ids": ["needle_height"],
+      "mapping_note": "Direct match."
+    },
+    {
+      "id": "equipment_condition",
+      "label": "Dispensing equipment needs inspection or cleaning",
+      "sources": ["brief p.4", "matc82 sec 2.10 p.13"],
+      "image_signature": null,
+      "image_signature_note": "No source describes an image signature.",
+      "current_pack_ids": ["equipment_wear"],
+      "mapping_note": "Direct match."
+    }
+  ]
+}

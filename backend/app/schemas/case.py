@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-from app.models.enums import CaseTier, DiagnosedState
+from app.models.enums import CaseTier, DiagnosedState, RankTier
 from app.schemas.check_result import CheckResultRead
 from app.schemas.common import ORMModel
 from app.schemas.dispense_profile import DispenseProfileReadWithMaterial
@@ -57,6 +57,12 @@ class CaseBase(BaseModel):
 
     fingerprint: Fingerprint | None = None
     pre_intake_actions: list[str] = []
+    vision_result: dict | None = None
+    ranking: dict | None = None
+    rank_tier: RankTier | None = None
+    llm_map_used: bool = False
+    llm_critic_used: bool = False
+    llm_explain_used: bool = False
     diagnosis: Diagnosis | None = None
     verification: Verification | None = None
 
@@ -85,6 +91,12 @@ class CaseUpdate(BaseModel):
 
     fingerprint: Fingerprint | None = None
     pre_intake_actions: list[str] | None = None
+    vision_result: dict | None = None
+    ranking: dict | None = None
+    rank_tier: RankTier | None = None
+    llm_map_used: bool | None = None
+    llm_critic_used: bool | None = None
+    llm_explain_used: bool | None = None
     diagnosis: Diagnosis | None = None
     verification: Verification | None = None
 

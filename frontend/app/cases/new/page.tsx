@@ -74,6 +74,12 @@ export default function NewCasePage() {
         complaint: complaint || null,
         complaint_text: complaintText || null,
         fingerprint: null,
+        vision_result: null,
+        ranking: null,
+        rank_tier: null,
+        llm_map_used: false,
+        llm_critic_used: false,
+        llm_explain_used: false,
         diagnosis: null,
         verification: null,
         resolved: false,
@@ -83,7 +89,7 @@ export default function NewCasePage() {
         engineer_notes: null,
       });
       toast.success(`Case #${created.case_id} opened.`);
-      router.push(`/cases/${created.case_id}`);
+      router.push(`/troubleshoot/${created.case_id}`);
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Could not open the case.");
     } finally {
